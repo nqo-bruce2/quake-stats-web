@@ -24,7 +24,7 @@
               ></v-text-field>
             </v-card-title>
           <!-- :height="400" -->
-            <v-data-table
+            <v-data-table id="test"
               :loading="loading"
               loading-text="Loading players... Please wait"
               :headers="headers"
@@ -60,27 +60,39 @@ export default {
           sortable: true,
           value: "name"
         },
-        { text: "Total MVP", value: "mvpCount" },
-        { text: "Average Kill Efficiency", value: "avgKillEff" },
-        { text: "Average Weapon efficiency", value: "avgWepEff" },
-        { text: "Total Quads", value: "quadCount" },
-        { text: "Average Quad Efficiency", value: "avgQuadEff" },
-        { text: "Total Quad Frags", value: "quadFrags" },
-        { text: "Total Quad Self Kills", value: "quadSelfKills" },
-        { text: "Total Quad Team Kills", value: "quadTeamKills" },
-        { text: "Total Frags", value: "fragCount" },
-        { text: "Total Enemy Kills", value: "enemyKills" },
-        { text: "Total Self Kills", value: "selfKills" },
-        { text: "Total Deaths", value: "deaths" },
-        { text: "Total Damage Given", value: "dmgGiven" },
-        { text: "Total Damage Taken", value: "dmgTaken" },
-        { text: "Average SG Efficiency", value: "avgBulletEff" },
-        { text: "Average NG Efficiency", value: "avgNailsEff" },
-        { text: "Average RL Efficiency", value: "avgRlEff" },
-        { text: "Average LG Efficiency", value: "avgLgEff" },
-        { text: "Total Dropped Packs", value: "droppedPacks" },
-        { text: "Total Self Damage", value: "selfDmg" },
-        { text: "Total Team Damage", value: "teamDmg" }
+        { text: "Total Matches Played", value: "matchCount" },
+        { text: "Avg Frags Per Game", value: "avgFragsPerGame" },
+        { text: "Avg Dmg Given Per Game", value: "avgDmgPerGame" },
+        { text: "Avg Deaths Per Game", value: "avgDeathsPerGame" },
+        { text: "Avg Enemy Kills Per Game", value: "avgEnemyKillsPerGame" },
+        { text: "Avg Self Kills Per Game", value: "avgSelfKillsPerGame" },
+        { text: "Avg Team Kills Per Game", value: "avgTeamKillsPerGame" },
+        { text: "Avg Quads Per Game", value: "avgQuadsPerGame" },
+        { text: "Avg Quad Enemy Kills Per Game", value: "avgQuadEnemyKillsPerGame" },
+        { text: "Avg Quad Self Kills Per Game", value: "avgQuadSelfKillsPerGame" },
+        { text: "Avg Quad Team Kills Per Game", value: "avgQuadTeamKillsPerGame" },
+        { text: "Avg Dmg Taken Per Game", value: "avgDmgTakenPerGame" },
+        { text: "Avg Dropped Packs Per Game", value: "avgDroppedPacksPerGame" },
+        //{ text: "Total MVP", value: "mvpCount" },
+        //{ text: "Average Kill Efficiency", value: "avgKillEff" },
+        //{ text: "Average Weapon efficiency", value: "avgWepEff" },
+        //{ text: "Total Quads", value: "quadCount" },
+        //{ text: "Average Quad Efficiency", value: "avgQuadEff" },
+        //{ text: "Total Quad Frags", value: "quadFrags" },
+        //{ text: "Total Quad Self Kills", value: "quadSelfKills" },
+        //{ text: "Total Quad Team Kills", value: "quadTeamKills" },
+        //{ text: "Total Frags", value: "fragCount" },
+        //{ text: "Total Enemy Kills", value: "enemyKills" },
+        //{ text: "Total Self Kills", value: "selfKills" },
+        //{ text: "Total Deaths", value: "deaths" },
+        //{ text: "Total Damage Taken", value: "dmgTaken" },
+        //{ text: "Average SG Efficiency", value: "avgBulletEff" },
+        //{ text: "Average NG Efficiency", value: "avgNailsEff" },
+        //{ text: "Average RL Efficiency", value: "avgRlEff" },
+        //{ text: "Average LG Efficiency", value: "avgLgEff" },
+        //{ text: "Total Dropped Packs", value: "droppedPacks" },
+        //{ text: "Total Self Damage", value: "selfDmg" },
+        //{ text: "Total Team Damage", value: "teamDmg" }
       ],
       players: [],
       errors: "",
@@ -97,9 +109,9 @@ export default {
     initialize() {
       this.loading = true;
       let vm = this;
-      PlayersService.getSignedupPlayers()
+      PlayersService.getAllStats()
         .then(playerData => {
-          playerData.data.players.forEach(player => {
+          playerData.data.allStats.forEach(player => {
             vm.players.push(player);
           });
           vm.loading = false;
@@ -116,6 +128,7 @@ export default {
 };
 </script>
 <style>
+  #test
   table > tbody > tr > td:nth-child(1),
   table > thead > tr > th:nth-child(1) {
     position: sticky !important;
